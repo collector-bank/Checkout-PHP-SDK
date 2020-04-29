@@ -1,0 +1,11 @@
+{
+    "name": "webbhuset/collector-checkout-sdk",
+    "autoload": {
+        "psr-4": {
+            "Webbhuset\\CollectorCheckoutSDK\\": "src"
+        }
+    },
+    "description": "SDK for Collector Bank Checkout API",
+    "type": "library",
+    "require": {}
+}
