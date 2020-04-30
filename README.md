@@ -1,7 +1,7 @@
 # Checkout api SDK
 Php package used to communicate with Collector Bank Checkout API. Used when creating orders.
 
-[Checkout API reference](http://web-checkout-documentation.azurewebsites.net/)
+[Checkout API reference](https://payments.collectorbank.se/docs/checkout/introduction)
 
 
 Data objects are immutable. Pass all variables in the constructor.
