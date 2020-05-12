@@ -11,6 +11,7 @@ class Item
     protected $vat;
     protected $requiresElectronicId;
     protected $sku;
+    protected $weight;
 
     public function __construct(
         string $id,
@@ -19,7 +20,8 @@ class Item
         int $quantity,
         float $vat,
         bool $requiresElectronicId = null,
-        string $sku = null
+        string $sku = null,
+        float $weight = null
     ) {
         $this->id                   = mb_substr($id, 0, 50);
         $this->description          = mb_substr($description, 0, 50);
@@ -28,6 +30,7 @@ class Item
         $this->vat                  = $vat;
         $this->requiresElectronicId = $requiresElectronicId;
         $this->sku                  = mb_substr($sku, 0, 50);
+        $this->weight               = ($weight == null) ? (0.00): ($weight);
     }
 
     public function getId() : string
@@ -38,6 +41,11 @@ class Item
     public function getDescription() : string
     {
         return $this->description;
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
     }
 
     public function getUnitPrice() : float
@@ -82,6 +90,7 @@ class Item
             'vat'                   => $this->getVat(),
             'requiresElectronicId'  => $this->getRequiresElectronicId(),
             'sku'                   => $this->getSku(),
+            'unitWeight'            => $this->getWeight()
         ];
 
         if ($data['requiresElectronicId'] === null) {
