@@ -40,6 +40,26 @@ class ResponseError extends \Exception
         return $this->response;
     }
 
+
+    public function getErrorLogMessageFromResponse()
+    {
+        $errorLogMessage = "";
+        $errorLogMessage .= $this->getMessage();
+        $responseBody = $this->getResponseBody();
+
+        if (isset($responseBody['error']['errors'][0]['reason'])
+            && isset($responseBody['error']['errors'][0]['message'])
+        ) {
+            $reason = $responseBody['error']['errors'][0]['reason'];
+            $message = $responseBody['error']['errors'][0]['message'];
+
+            $errorLogMessage .= " $reason: $message";
+        }
+
+        return $errorLogMessage;
+    }
+
+
     public function getResponseBody()
     {
         $body = $this->response['body'] ?? '';
