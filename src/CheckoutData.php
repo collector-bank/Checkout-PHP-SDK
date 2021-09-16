@@ -268,19 +268,21 @@ class CheckoutData
             );
         }
 
-        $customerData               = $data['customer'] ?? [];
-        $email                      = $customerData['email'] ?? '';
-        $mobilePhoneNumber          = $customerData['mobilePhoneNumber'] ?? '';
-        $deliveryMobilePhoneNumber  = $customerData['deliveryContactInformation']['mobilePhoneNumber'] ?? '';
-        $deliveryAddress            = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
-        $billingAddress             = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
+        $customerData                 = $data['customer'] ?? [];
+        $email                        = $customerData['email'] ?? '';
+        $mobilePhoneNumber            = $customerData['mobilePhoneNumber'] ?? '';
+        $deliveryMobilePhoneNumber    = $customerData['deliveryContactInformation']['mobilePhoneNumber'] ?? '';
+        $deliveryAddress              = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
+        $billingAddress               = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
+        $nationalIdentificationNumber = $customerData['nationalIdentificationNumber'] ?? '';
 
         return new PrivateCustomer(
             $email,
             $mobilePhoneNumber,
             $deliveryMobilePhoneNumber,
             $billingAddress,
-            $deliveryAddress
+            $deliveryAddress,
+            $nationalIdentificationNumber
         );
     }
 

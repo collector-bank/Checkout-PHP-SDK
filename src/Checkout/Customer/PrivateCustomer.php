@@ -12,19 +12,22 @@ class PrivateCustomer extends AbstractCustomer
     protected $deliveryMobilePhoneNumber;
     protected $invoiceAddress;
     protected $deliveryAddress;
+    protected $nationalIdentificationNumber;
 
     public function __construct(
         string $email,
         string $mobilePhoneNumber,
         string $deliveryMobilePhoneNumber,
         PrivateAddress $invoiceAddress,
-        PrivateAddress $deliveryAddress
+        PrivateAddress $deliveryAddress,
+        string $nationalIdentificationNumber = ''
     ) {
         $this->email                        = $email;
         $this->mobilePhoneNumber            = $mobilePhoneNumber;
         $this->deliveryMobilePhoneNumber    = $deliveryMobilePhoneNumber;
         $this->invoiceAddress               = $invoiceAddress;
         $this->deliveryAddress              = $deliveryAddress;
+        $this->nationalIdentificationNumber = $nationalIdentificationNumber;
     }
 
     public function getEmail() : string
@@ -50,5 +53,10 @@ class PrivateCustomer extends AbstractCustomer
     public function getDeliveryAddress() : PrivateAddress
     {
         return $this->deliveryAddress;
+    }
+
+    public function getNationalIdentificationNumber(): string
+    {
+        return $this->nationalIdentificationNumber;
     }
 }
