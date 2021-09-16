@@ -249,7 +249,8 @@ class Test
             '123456789',
             '987654321',
             $invoiceAddress,
-            $deliveryAddress
+            $deliveryAddress,
+            '197707070707'
         );
 
         return $customer;
