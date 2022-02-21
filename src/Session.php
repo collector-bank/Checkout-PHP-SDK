@@ -48,11 +48,15 @@ class Session
 
         $customerData = null;
         if ($customer) {
+            $deliveryAddress = [
+                'postalCode' => $customer->getPostalCode(),
+            ];
+
             $customerData = [
                 'email'                         => $customer->getEmail(),
                 'mobilePhoneNumber'             => $customer->getMobilePhoneNumber(),
                 'nationalIdentificationNumber'  => $customer->getNationalIdentificationNumber(),
-                'postalCode'                    => $customer->getPostalCode(),
+                'deliveryAddress'               => $deliveryAddress,
             ];
         }
 
