@@ -61,16 +61,16 @@ class Session
         }
 
         $data = [
-            "storeId"           => $config->getStoreId(),
-            "countryCode"       => $countryCode,
-            "reference"         => $reference,
-            "redirectPageUri"   => $config->getRedirectPageUri(),
-            "merchantTermsUri"  => $config->getMerchantTermsUri(),
-            "notificationUri"   => $config->getNotificationUri(),
-            "validationUri"     => $config->getValidationUri(),
-            'fees'              => $fees,
-            'cart'              => $cart,
-            'customer'          => $customerData,
+            "storeId"                   => $config->getStoreId(),
+            "countryCode"               => $countryCode,
+            "reference"                 => $reference,
+            "redirectPageUri"           => $config->getRedirectPageUri(),
+            "merchantTermsUri"          => $config->getMerchantTermsUri(),
+            "notificationUri"           => $config->getNotificationUri(),
+            "validationUri"             => $config->getValidationUri(),
+            'fees'                      => $fees,
+            'cart'                      => $cart,
+            'privateCustomerPrefill'    => $customerData,
         ];
 
         if ($config->getProfileName()) {
@@ -80,8 +80,8 @@ class Session
         if (empty($data['fees'])) {
             unset($data['fees']);
         }
-        if (empty($data['customer'])) {
-            unset($data['customer']);
+        if (empty($data['privateCustomerPrefill'])) {
+            unset($data['privateCustomerPrefill']);
         }
 
         $response = $this->adapter->initializeCheckout($data);
