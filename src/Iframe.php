@@ -15,7 +15,7 @@ class Iframe
             'data-padding'      => $iframeConfig->getDataPadding(),
             'data-container-id' => $iframeConfig->getDataContainerId(),
             'data-action-color' => $iframeConfig->getDataActionColor(),
-            'data-text-color'   => $iframeConfig->getDataActionTextColor(),
+            'data-action-text-color' => $iframeConfig->getDataActionTextColor(),
         ];
 
         $properties = [];
