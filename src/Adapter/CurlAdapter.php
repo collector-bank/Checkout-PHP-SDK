@@ -174,7 +174,6 @@ class CurlAdapter
         $sharedAccessKey = $this->config->getSharedAccessKey();
 
         $sharedKeyHeader = Request::getSharedKeyHeader($userName, $body, $path, $sharedAccessKey);
-        
         if ($method === 'GET') {
             return [
                 'Authorization: ' . $sharedKeyHeader
