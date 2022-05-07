@@ -20,7 +20,7 @@ class Item
         int $quantity,
         float $vat,
         bool $requiresElectronicId = null,
-        string $sku = null,
+        string $sku = "",
         float $weight = null
     ) {
         $this->id                   = mb_substr($id, 0, 50);
