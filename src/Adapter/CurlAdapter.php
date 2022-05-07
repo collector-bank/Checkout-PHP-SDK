@@ -13,8 +13,8 @@ class CurlAdapter
     protected $postData = [];
     protected $headers = [];
     protected $config;
-    protected $baseUrl = 'https://checkout-api.collector.se';
-    protected $baseTestUrl = 'https://checkout-api-uat.collector.se';
+    protected $baseUrl = 'https://api.checkout.walleypay.com';
+    protected $baseTestUrl = 'https://api.checkout.uat.walleydev.com';
     protected $initializePath = '/checkout';
     protected $updateCartPath = '/merchants/{storeId}/checkouts/{privateId}/cart';
     protected $updateFeesPath = '/merchants/{storeId}/checkouts/{privateId}/fees';
@@ -174,7 +174,6 @@ class CurlAdapter
         $sharedAccessKey = $this->config->getSharedAccessKey();
 
         $sharedKeyHeader = Request::getSharedKeyHeader($userName, $body, $path, $sharedAccessKey);
-
         if ($method === 'GET') {
             return [
                 'Authorization: ' . $sharedKeyHeader
