@@ -11,6 +11,7 @@ class Status
     const CUSTOMER_IDENTIFIED   = 'CustomerIdentified';
     const COMMITTED_TO_PURCHASE = 'CommittedToPurchase';
     const PURCHASE_COMPLETED    = 'PurchaseCompleted';
+    const SESSION_ABORTED       = 'Aborted';
 
     protected $status;
     public $validStatuses = [
@@ -18,6 +19,7 @@ class Status
         self::CUSTOMER_IDENTIFIED,
         self::COMMITTED_TO_PURCHASE,
         self::PURCHASE_COMPLETED,
+        self::SESSION_ABORTED,
     ];
 
     public function __construct(
