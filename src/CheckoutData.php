@@ -275,7 +275,7 @@ class CheckoutData
         $mobilePhoneNumber            = $customerData['mobilePhoneNumber'] ?? '';
         $deliveryMobilePhoneNumber    = $customerData['deliveryContactInformation']['mobilePhoneNumber'] ?? '';
         $deliveryAddress              = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
-        $billingAddress               = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
+        $billingAddress               = $this->privateAddressFromArray($customerData['billingAddress'] ?? []);
         $nationalIdentificationNumber = $customerData['nationalIdentificationNumber'] ?? '';
 
         return new PrivateCustomer(
