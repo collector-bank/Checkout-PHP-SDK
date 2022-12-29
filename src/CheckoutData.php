@@ -248,6 +248,7 @@ class CheckoutData
             $companyName        = $customerData['companyName'] ?? '';
             $orgNumber          = $customerData['organizationNumber'] ?? '';
             $invoiceReference   = $customerData['invoiceReference'] ?? '';
+            $invoiceTag         = $customerData['invoiceTag'] ?? '';
             $email              = $customerData['email'] ?? '';
             $firstName          = $customerData['firstName'] ?? '';
             $lastName           = $customerData['lastName'] ?? '';
@@ -259,6 +260,7 @@ class CheckoutData
                 $companyName,
                 $orgNumber,
                 $invoiceReference,
+                $invoiceTag,
                 $email,
                 $firstName,
                 $lastName,
