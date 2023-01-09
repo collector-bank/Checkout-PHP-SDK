@@ -248,6 +248,7 @@ class CheckoutData
             $companyName        = $customerData['companyName'] ?? '';
             $orgNumber          = $customerData['organizationNumber'] ?? '';
             $invoiceReference   = $customerData['invoiceReference'] ?? '';
+            $invoiceTag         = $customerData['invoiceTag'] ?? '';
             $email              = $customerData['email'] ?? '';
             $firstName          = $customerData['firstName'] ?? '';
             $lastName           = $customerData['lastName'] ?? '';
@@ -259,6 +260,7 @@ class CheckoutData
                 $companyName,
                 $orgNumber,
                 $invoiceReference,
+                $invoiceTag,
                 $email,
                 $firstName,
                 $lastName,
@@ -273,7 +275,7 @@ class CheckoutData
         $mobilePhoneNumber            = $customerData['mobilePhoneNumber'] ?? '';
         $deliveryMobilePhoneNumber    = $customerData['deliveryContactInformation']['mobilePhoneNumber'] ?? '';
         $deliveryAddress              = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
-        $billingAddress               = $this->privateAddressFromArray($customerData['deliveryAddress'] ?? []);
+        $billingAddress               = $this->privateAddressFromArray($customerData['billingAddress'] ?? []);
         $nationalIdentificationNumber = $customerData['nationalIdentificationNumber'] ?? '';
 
         return new PrivateCustomer(

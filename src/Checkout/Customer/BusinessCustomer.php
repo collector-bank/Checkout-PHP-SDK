@@ -10,6 +10,7 @@ class BusinessCustomer extends AbstractCustomer
     protected $companyName;
     protected $organizationNumber;
     protected $invoiceReference;
+    protected $invoiceTag;
     protected $email;
     protected $firstName;
     protected $lastName;
@@ -21,6 +22,7 @@ class BusinessCustomer extends AbstractCustomer
         string $companyName,
         string $organizationNumber,
         string $invoiceReference,
+        string $invoiceTag,
         string $email,
         string $firstName,
         string $lastName,
@@ -31,6 +33,7 @@ class BusinessCustomer extends AbstractCustomer
         $this->companyName          = $companyName;
         $this->organizationNumber   = $organizationNumber;
         $this->invoiceReference     = $invoiceReference;
+        $this->invoiceTag           = $invoiceTag;
         $this->email                = $email;
         $this->firstName            = $firstName;
         $this->lastName             = $lastName;
@@ -52,6 +55,11 @@ class BusinessCustomer extends AbstractCustomer
     public function getInvoiceReference() : string
     {
         return $this->invoiceReference;
+    }
+
+    public function getInvoiceTag() : string
+    {
+        return $this->invoiceTag;
     }
 
     public function getEmail() : string
