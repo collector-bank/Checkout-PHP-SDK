@@ -14,7 +14,7 @@ class Purchase
     protected $result;
 
     public function __construct(
-        int $amountToPay,
+        $amountToPay,
         string $paymentName,
         string $invoiceDeliveryMethod,
         string $purchaseIdentifier,
@@ -29,7 +29,7 @@ class Purchase
 
     public function getAmountToPay() : int
     {
-        return $this->amountToPay;
+        return (int) $this->amountToPay;
     }
 
     public function getPaymentName() : string
