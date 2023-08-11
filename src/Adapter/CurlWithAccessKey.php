@@ -18,7 +18,7 @@ class CurlWithAccessKey
     protected $updateFeesPath = '/checkouts/{privateId}/fees';
     protected $referencePath  = '/checkouts/{privateId}/reference';
     protected $acquireInfoPath = '/checkouts/{privateId}';
-    protected ConfigInterface $config;
+    protected $config;
 
     public function __construct(
         ConfigInterface $config

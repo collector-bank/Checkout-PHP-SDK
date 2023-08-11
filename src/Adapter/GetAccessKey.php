@@ -15,6 +15,7 @@ class GetAccessKey
     protected $grantType = "client_credentials";
     protected $scopeUat = "705798e0-8cef-427c-ae00-6023deba29af/.default";
     protected $scopeProd = "a3f3019f-2be9-41cc-a254-7bb347238e89/.default";
+    protected $config;
 
     public function __construct(
         ConfigInterface $config
