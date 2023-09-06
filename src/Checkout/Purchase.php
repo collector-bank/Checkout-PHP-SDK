@@ -11,6 +11,7 @@ class Purchase
     protected $paymentName;
     protected $invoiceDeliveryMethod;
     protected $purchaseIdentifier;
+    protected $orderId;
     protected $result;
 
     public function __construct(
@@ -18,12 +19,14 @@ class Purchase
         string $paymentName,
         string $invoiceDeliveryMethod,
         string $purchaseIdentifier,
+        string $orderId,
         Result $result
     ) {
         $this->amountToPay              = $amountToPay;
         $this->paymentName              = $paymentName;
         $this->invoiceDeliveryMethod    = $invoiceDeliveryMethod;
         $this->purchaseIdentifier       = $purchaseIdentifier;
+        $this->orderId                  = $orderId;
         $this->result                   = $result;
     }
 
@@ -45,6 +48,11 @@ class Purchase
     public function getPurchaseIdentifier() : string
     {
         return $this->purchaseIdentifier;
+    }
+
+    public function getOrderId() : string
+    {
+        return $this->orderId;
     }
 
     public function getResult() : Result

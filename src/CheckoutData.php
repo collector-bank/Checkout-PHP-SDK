@@ -215,6 +215,7 @@ class CheckoutData
 
     protected function purchaseFromArray(array $data) : Purchase
     {
+        $orderId = isset($data['order']['orderId']) ? $data['order']['orderId'] : '';
         $data = $data['purchase'] ?? [];
         $result = isset($data['result'])
             ? new Result($data['result'])
@@ -225,6 +226,7 @@ class CheckoutData
             $data['paymentName'] ?? '',
             $data['invoiceDeliveryMethod'] ?? '',
             $data['purchaseIdentifier'] ?? '',
+            $orderId,
             $result
         );
     }
