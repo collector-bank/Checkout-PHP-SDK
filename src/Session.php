@@ -2,6 +2,7 @@
 
 namespace Webbhuset\CollectorCheckoutSDK;
 
+use Webbhuset\CollectorCheckout\Config\Source\Customer\DefaultType;
 use Webbhuset\CollectorCheckoutSDK\Adapter\AdapterInterface;
 use Webbhuset\CollectorCheckoutSDK\Checkout\Cart;
 use Webbhuset\CollectorCheckoutSDK\Checkout\Customer\InitializeCustomer;
@@ -46,19 +47,6 @@ class Session
             throw new ValidationError("Country code not valid. Must be one of {$codes}");
         }
 
-        $customerData = null;
-        if ($customer) {
-            $deliveryAddress = [
-                'postalCode' => $customer->getPostalCode(),
-            ];
-
-            $customerData = [
-                'email'                         => $customer->getEmail(),
-                'mobilePhoneNumber'             => $customer->getMobilePhoneNumber(),
-                'nationalIdentificationNumber'  => $customer->getNationalIdentificationNumber(),
-                'deliveryAddress'               => $deliveryAddress,
-            ];
-        }
 
         $data = [
             "storeId"                   => $config->getStoreId(),
@@ -70,8 +58,8 @@ class Session
             "validationUri"             => $config->getValidationUri(),
             'fees'                      => $fees,
             'cart'                      => $cart,
-            'privateCustomerPrefill'    => $customerData,
         ];
+
 
         if ($config->getProfileName()) {
             $data['profileName'] = $config->getProfileName();
@@ -80,8 +68,19 @@ class Session
         if (empty($data['fees'])) {
             unset($data['fees']);
         }
-        if (empty($data['privateCustomerPrefill'])) {
-            unset($data['privateCustomerPrefill']);
+        if ($customer) {
+            $customerData = [
+                'email'                         => $customer->getEmail(),
+                'mobilePhoneNumber'             => $customer->getMobilePhoneNumber(),
+                'nationalIdentificationNumber'  => $customer->getNationalIdentificationNumber(),
+                'deliveryAddress'               => $customer->getDeliveryAddress(),
+            ];
+            if ((int)$customer->getCustomerType() === DefaultType::PRIVATE_CUSTOMERS) {
+                $data['privateCustomerPrefill'] = $customerData;
+            }
+            if ((int)$customer->getCustomerType() === DefaultType::BUSINESS_CUSTOMERS) {
+                $data['businessCustomerPrefill'] = $customerData;
+            }
         }
 
         $response = $this->adapter->initializeCheckout($data);
