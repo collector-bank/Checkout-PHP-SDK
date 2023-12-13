@@ -80,9 +80,10 @@ class Session
             }
             if ((int)$customer->getCustomerType() === DefaultType::BUSINESS_CUSTOMERS) {
                 $data['businessCustomerPrefill'] = $customerData;
+                $data['businessCustomerPrefill']['buyer'] = $this->getBuyerInformation($customerData);
+                $data['businessCustomerPrefill']['organizationNumber'] = $customer->getNationalIdentificationNumber() ?? '';
             }
         }
-
         $response = $this->adapter->initializeCheckout($data);
 
         if (isset($response['data']['privateId'])) {
@@ -115,6 +116,21 @@ class Session
 
         return $this;
     }
+
+    public function getBuyerInformation($customerData)
+    {
+        if (!is_array($customerData)) {
+            return [];
+        }
+
+        return [
+            'firstName' => $customerData['deliveryAddress']['firstName'] ?? '',
+            'lastName' => $customerData['deliveryAddress']['lastName'] ?? '',
+            'email' => $customerData['email'] ?? '',
+            'mobilePhoneNumber' => $customerData['mobilePhoneNumber'] ?? '',
+        ];
+    }
+
 
     public function setOrderReference(string $reference)
     {
