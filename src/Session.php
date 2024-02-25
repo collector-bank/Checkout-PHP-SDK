@@ -84,6 +84,12 @@ class Session
                 $data['businessCustomerPrefill']['organizationNumber'] = $customer->getNationalIdentificationNumber() ?? '';
                 unset($data['businessCustomerPrefill']['deliveryAddress']['firstName']);
                 unset($data['businessCustomerPrefill']['deliveryAddress']['lastName']);
+                unset($data['businessCustomerPrefill']['mobilePhoneNumber']);
+                unset($data['businessCustomerPrefill']['nationalIdentificationNumber']);
+                if (isset($data['businessCustomerPrefill']['deliveryAddress'])
+                    && empty($data['businessCustomerPrefill']['deliveryAddress'])) {
+                    unset($data['businessCustomerPrefill']['deliveryAddress']);
+                }
             }
         }
         $response = $this->adapter->initializeCheckout($data);
