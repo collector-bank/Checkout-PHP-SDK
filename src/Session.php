@@ -77,6 +77,10 @@ class Session
             ];
             if ((int)$customer->getCustomerType() === DefaultType::PRIVATE_CUSTOMERS) {
                 $data['privateCustomerPrefill'] = $customerData;
+                if (isset($data['privateCustomerPrefill']['deliveryAddress'])
+                    && empty($data['privateCustomerPrefill']['deliveryAddress'])) {
+                    unset($data['privateCustomerPrefill']['deliveryAddress']);
+                }
             }
             if ((int)$customer->getCustomerType() === DefaultType::BUSINESS_CUSTOMERS) {
                 $data['businessCustomerPrefill'] = $customerData;
