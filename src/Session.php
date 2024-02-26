@@ -77,6 +77,10 @@ class Session
             ];
             if ((int)$customer->getCustomerType() === DefaultType::PRIVATE_CUSTOMERS) {
                 $data['privateCustomerPrefill'] = $customerData;
+                if (isset($data['privateCustomerPrefill']['deliveryAddress'])
+                    && empty($data['privateCustomerPrefill']['deliveryAddress'])) {
+                    unset($data['privateCustomerPrefill']['deliveryAddress']);
+                }
             }
             if ((int)$customer->getCustomerType() === DefaultType::BUSINESS_CUSTOMERS) {
                 $data['businessCustomerPrefill'] = $customerData;
@@ -84,6 +88,12 @@ class Session
                 $data['businessCustomerPrefill']['organizationNumber'] = $customer->getNationalIdentificationNumber() ?? '';
                 unset($data['businessCustomerPrefill']['deliveryAddress']['firstName']);
                 unset($data['businessCustomerPrefill']['deliveryAddress']['lastName']);
+                unset($data['businessCustomerPrefill']['mobilePhoneNumber']);
+                unset($data['businessCustomerPrefill']['nationalIdentificationNumber']);
+                if (isset($data['businessCustomerPrefill']['deliveryAddress'])
+                    && empty($data['businessCustomerPrefill']['deliveryAddress'])) {
+                    unset($data['businessCustomerPrefill']['deliveryAddress']);
+                }
             }
         }
         $response = $this->adapter->initializeCheckout($data);
