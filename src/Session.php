@@ -59,7 +59,10 @@ class Session
             'fees'                      => $fees,
             'cart'                      => $cart,
         ];
-
+        $customFields = $config->getCustomFields();
+        if (!empty($customFields)) {
+            $data['customFields'] = $customFields;
+        }
 
         if ($config->getProfileName()) {
             $data['profileName'] = $config->getProfileName();
