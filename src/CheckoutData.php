@@ -29,11 +29,48 @@ class CheckoutData
     protected $purchase;
     protected $order;
     protected $shipping;
+    protected $customField;
 
     public function __construct(
         array $response
     ) {
         $this->fromResponse($response);
+    }
+
+    public function getCustomFieldNewsletter():array
+    {
+        $fields = $this->getFields($this->customField);
+        if (!isset($fields['newsConsent'])) {
+            return [];
+        }
+        return $fields['newsConsent'];
+    }
+
+    public function getCustomFieldComment():array
+    {
+        $fields = $this->getFields($this->customField);
+        if (!isset($fields['comments'])) {
+            return [];
+        }
+        return $fields['comments'];
+    }
+
+    public function getFields(array $customFields):array
+    {
+        if (!isset($this->customField[0]['fields'])){
+            return [];
+        }
+        $result = [];
+        $fields = $this->customField[0]['fields'];
+        foreach ($fields as $field) {
+            if(isset($field['id']) && isset($field['value'])) {
+                $result[$field['id']] = [
+                    'id' => $field['id'],
+                    'value' => $field['value'],
+                ];
+            }
+        }
+        return $result;
     }
 
     public function getCustomerType() : string
@@ -114,6 +151,7 @@ class CheckoutData
         $this->purchase         = $this->purchaseFromArray($data);
         $this->order            = $this->orderFromArray($data);
         $this->shipping         = $this->shippingFromArray($data);
+        $this->customField      = $data['customFields'] ?? [];
 
         return $this;
     }
