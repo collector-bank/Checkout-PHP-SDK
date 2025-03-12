@@ -33,14 +33,16 @@ class Session
 
     public function initialize(
         ConfigInterface $config,
-        Fees $fees,
+        $fees,
         Cart $cart,
         string $countryCode,
         InitializeCustomer $customer = null,
         string $reference = null
     ) {
-        $fees       = $fees->toArray();
-        $cart       = $cart->toArray();
+        if (!isset($fees['provider'])) {
+            $fees = $fees->toArray();
+        }
+        $cart = $cart->toArray();
 
         if (!in_array($countryCode, $this->validCountryCodes)) {
             $codes = implode(', ', $this->validCountryCodes);
@@ -71,6 +73,11 @@ class Session
         if (empty($data['fees'])) {
             unset($data['fees']);
         }
+        if (isset($fees['provider'])) {
+            unset($data['fees']);
+            $data["shipping"] = $fees;
+        }
+
         if ($customer) {
             $customerData = [
                 'email'                         => $customer->getEmail(),
