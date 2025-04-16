@@ -171,6 +171,8 @@ class CurlWithAccessKey
                 'description' => $article['Description'],
                 'quantity' => $article['Quantity'],
                 'unitPrice' => $article['UnitPrice'],
+                'type' => $article['Type'],
+                'vat' => $article['VAT'],
             ];
         }
 
