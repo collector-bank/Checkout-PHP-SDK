@@ -41,9 +41,12 @@ class Session
         InitializeCustomer $customer = null,
         string $reference = null
     ) {
-        if (!isset($fees['provider'])) {
+        if ($fees instanceof Fees) {
             $fees = $fees->toArray();
+        } elseif (!is_array($fees)) {
+            throw new \InvalidArgumentException('Fees must be an instance of Fees or an array.');
         }
+
         $cart = $cart->toArray();
 
         if (!in_array($countryCode, $this->validCountryCodes)) {
