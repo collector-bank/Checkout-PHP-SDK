@@ -14,6 +14,8 @@ class Session
     protected $adapter;
     protected $privateId;
     protected $publicToken;
+    protected $paymentUri;
+    protected $sessionId;
     protected $expiresAt;
     protected $checkoutData;
 
@@ -123,7 +125,24 @@ class Session
             $this->expiresAt = $response['data']['expiresAt'];
         }
 
+        if (isset($response['data']['paymentUri'])) {
+            $this->paymentUri = $response['data']['paymentUri'];
+        }
+        if (isset($response['id'])) {
+            $this->sessionId = $response['id'];
+        }
+
         return $this;
+    }
+
+    public function getPaymentUri():string
+    {
+        return $this->paymentUri;
+    }
+
+    public function getSessionId():string
+    {
+        return $this->sessionId;
     }
 
     public function updateCart(Cart $cart)

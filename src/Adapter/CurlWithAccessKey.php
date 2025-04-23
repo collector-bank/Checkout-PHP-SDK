@@ -27,6 +27,11 @@ class CurlWithAccessKey
     protected $partActivatePath = '/manage/orders/{privateId}/capture';
     protected $partCreditPath = '/manage/orders/{privateId}/refund';
     protected $cancelInvoicePath = '/manage/orders/{privateId}/cancel';
+    protected $reauthorizePath = '/manage/orders/{privateId}/reauthorize';
+    protected $reauthorizeStatusPath = '/manage/orders/{privateId}/reauthorize';
+
+
+
     protected $config;
 
     public function __construct(
@@ -62,6 +67,44 @@ class CurlWithAccessKey
         $path = $this->replacePathPrivate($path, $orderReference);
 
         $response = $this->sendRequest($path, '', 'GET');
+        $responseBody = $this->extractBody($response);
+
+        return $responseBody;
+    }
+
+    /**
+     * @param string $orderReference
+     * @param array $payload
+     * @return int response status code
+     */
+    public function reauthorize(string $orderReference, array $payload):int
+    {
+        $path = $this->reauthorizePath;
+        $path = $this->replacePathPrivate($path, $orderReference);
+
+        $bodyJsonEncoded = json_encode($payload);
+        $response = $this->sendRequest($path, $bodyJsonEncoded, 'POST');
+
+        return (int) $this->getStatusCodeFromResponse($response);
+    }
+
+    private function getStatusCodeFromResponse($response) {
+        $headerText = $response['header'];
+        $statusLine = explode("\r\n", $headerText)[0]; // get the first line
+        $parts = explode(' ', $statusLine); // split parts by space
+
+        if (count($parts) < 2) {
+            throw new Exception('Invalid HTTP response header');
+        }
+
+        $statusCode = intval($parts[1]); // get the second part which is the status code
+
+        return $statusCode;
+    }
+
+    public function getReauthorizeStatus(string $location)
+    {
+        $response = $this->sendRequest($location, 'GET');
         $responseBody = $this->extractBody($response);
 
         return $responseBody;
@@ -171,6 +214,8 @@ class CurlWithAccessKey
                 'description' => $article['Description'],
                 'quantity' => $article['Quantity'],
                 'unitPrice' => $article['UnitPrice'],
+                'type' => $article['Type'],
+                'vat' => $article['VAT'],
             ];
         }
 
