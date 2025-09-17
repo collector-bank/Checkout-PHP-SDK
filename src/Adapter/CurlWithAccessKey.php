@@ -75,15 +75,72 @@ class CurlWithAccessKey
     /**
      * @param string $orderReference
      * @param array $payload
-     * @return int response status code
+     * @return array response status code
      */
-    public function reauthorize(string $orderReference, array $payload):int
+    public function reauthorize(string $orderReference, array $payload):array
     {
         $path = $this->reauthorizePath;
         $path = $this->replacePathPrivate($path, $orderReference);
 
         $bodyJsonEncoded = json_encode($payload);
         $response = $this->sendRequest($path, $bodyJsonEncoded, 'POST');
+
+        return [
+            'status' => (int) $this->getStatusCodeFromResponse($response),
+            'reauthorizationId' => $this->getReauthorizationIdFromResponse($response),
+        ];
+
+    }
+
+    private function getReauthorizationIdFromResponse(array $response): ?string
+    {
+        if (empty($response['header'])) {
+            return null;
+        }
+
+        $rawHeader = $response['header'];
+
+        if (is_string($rawHeader)) {
+            $headers = preg_split('/\r\n|\r|\n/', $rawHeader);
+
+            if (count($headers) === 1) {
+                $headers = preg_split('/(?=\s[A-Za-z0-9\-]+:)/', $rawHeader);
+            }
+        } else {
+            $headers = (array)$rawHeader;
+        }
+
+        $location = null;
+        foreach ($headers as $headerLine) {
+            $headerLine = trim($headerLine);
+            if (stripos($headerLine, 'Location:') === 0) {
+                $location = trim(substr($headerLine, strlen('Location:')));
+                break;
+            }
+        }
+
+        if (!$location) {
+            return null;
+        }
+
+        if (preg_match('#/reauthorize/([^/]+)$#i', $location, $matches)) {
+            return $matches[1];
+        }
+
+        $parts = explode('/', trim($location, '/'));
+        return end($parts) ?: null;
+    }
+
+    /**
+     * @param int $walleyOrderId
+     * @param int $reauthorizeId
+     * @return int response status code
+     */
+    public function reauthorizeStatus($walleyOrderId, $reauthorizeId):int
+    {
+        $path = $this->reauthorizeStatusPath;
+        $path = $this->replacePathPrivate($path, $walleyOrderId) . '/' . $reauthorizeId;
+        $response = $this->sendRequest($path);
 
         return (int) $this->getStatusCodeFromResponse($response);
     }
