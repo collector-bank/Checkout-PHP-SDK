@@ -157,6 +157,7 @@ class CurlAdapter
         return [
             'header' => $header,
             'body' => $responseBody,
+            'status' => $httpCode,
         ];
     }
 
