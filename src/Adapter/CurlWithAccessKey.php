@@ -183,7 +183,7 @@ class CurlWithAccessKey
         $bodyJsonEncoded = json_encode($body);
         $response = $this->sendRequest($path, $bodyJsonEncoded, 'POST');
 
-        if (!$this->isResponseHeader202($response['header'])) {
+        if (!$this->isResponseHeader202($response['status'])) {
             throw new ResponseError($body, $response);
         }
 
@@ -207,7 +207,7 @@ class CurlWithAccessKey
         $response = $this->sendRequest($path, $bodyJsonEncoded, 'POST');
 
         if (isset($response['header'])
-            && !$this->isResponseHeader202($response['header'])) {
+            && !$this->isResponseHeader202($response['status'])) {
             throw new ResponseError($body, $response);
         }
 
@@ -238,9 +238,9 @@ class CurlWithAccessKey
         return self::HEADER_ACCEPTED;
     }
 
-    private function isResponseHeader202($header):bool
+    private function isResponseHeader202($status):bool
     {
-        return strpos($header, self::HEADER_ACCEPTED) !== false;
+        return (int) $status === 202;
     }
 
     protected function replacePathPrivate(string $path, string $privateId) : string
