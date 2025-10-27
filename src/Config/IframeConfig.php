@@ -32,10 +32,10 @@ class IframeConfig
     {
         if ("production mode" == $mode) {
 
-            return 'https://checkout.collector.se/collector-checkout-loader.js';
+            return 'https://api.walleypay.com/walley-checkout-loader.js';
         }
 
-        return 'https://checkout-uat.collector.se/collector-checkout-loader.js';
+        return 'https://api.uat.walleydev.com/walley-checkout-loader.js';
     }
 
     /**
