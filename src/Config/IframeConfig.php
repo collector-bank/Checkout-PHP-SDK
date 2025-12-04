@@ -31,11 +31,10 @@ class IframeConfig
     public function getSrc($mode = "production mode") : string
     {
         if ("production mode" == $mode) {
-
-            return 'https://checkout.collector.se/collector-checkout-loader.js';
+            return 'https://checkout.collector.se/walley-checkout-loader.js';
         }
 
-        return 'https://checkout-uat.collector.se/collector-checkout-loader.js';
+        return 'https://checkout-uat.collector.se/walley-checkout-loader.js';
     }
 
     /**
