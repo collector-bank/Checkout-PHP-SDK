@@ -2,14 +2,11 @@
 
 namespace Webbhuset\CollectorCheckoutSDK\Config;
 
-class Config
-    implements \Webbhuset\CollectorCheckoutSDK\Config\ConfigInterface
+class Config implements \Webbhuset\CollectorCheckoutSDK\Config\ConfigInterface
 {
-    protected $username;
-    protected $sharedAccessKey;
+    protected $accessKey;
     protected $countryCode;
     protected $storeId;
-    protected $isMockMode = false;
     protected $isTestMode = false;
     protected $merchantTermsUri;
     protected $redirectPageUri;
@@ -17,26 +14,14 @@ class Config
     protected $validationUri;
     protected $profileName;
 
-    public function getUsername() : string
+    public function getAccessKey() : string
     {
-        return $this->username;
+        return $this->accessKey;
     }
 
-    public function setUsername(string $username) : Config
+    public function setAccessKey(string $accessKey) : Config
     {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getSharedAccessKey() : string
-    {
-        return $this->sharedAccessKey;
-    }
-
-    public function setSharedAccessKey(string $sharedAccessKey) : Config
-    {
-        $this->sharedAccessKey = $sharedAccessKey;
+        $this->accessKey = $accessKey;
 
         return $this;
     }
@@ -50,17 +35,6 @@ class Config
     {
         $this->countryCode = $countryCode;
 
-        return $this;
-    }
-
-    public function getIsMockMode() : bool
-    {
-        return $this->isMockMode;
-    }
-
-    public function setIsMockMode($bool) : Config
-    {
-        $this->isMockMode = $bool;
 
         return $this;
     }
