@@ -2,8 +2,6 @@
 
 namespace Webbhuset\CollectorCheckoutSDK\Adapter;
 
-use Webbhuset\CollectorCheckoutSDK\Adapter\Request;
-
 interface AdapterInterface
 {
     public function __construct(
@@ -20,3 +18,4 @@ interface AdapterInterface
 
     public function acquireInformation(string $privateId) : array;
 }
+
